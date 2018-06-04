@@ -29,8 +29,9 @@ RUN apt-get install -y mtools
 RUN apt-get install -y dosfstools
 
 # Create buildroot dir
-RUN mkdir -p /src
-WORKDIR /src
+RUN mkdir -p /buildroot
+RUN mkdir -p /buildroot-external
+WORKDIR /buildroot
 
 # Add a user (this is for the kernel builds whoami)
 RUN useradd -ms /bin/bash -u $USER_ID docker
@@ -38,9 +39,6 @@ RUN useradd -ms /bin/bash -u $USER_ID docker
 # Setup things for SSH
 COPY ssh_config /home/docker/.ssh/config
 RUN chown -R docker:docker /home/docker/.ssh
-
-# Create folder for buildroot source code
-RUN mkdir -p /buildroot
 
 # Set default docker
 USER docker
