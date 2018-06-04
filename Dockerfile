@@ -27,11 +27,12 @@ RUN apt-get install -y groff-base
 RUN apt-get install -y libconfuse-dev pkg-config
 RUN apt-get install -y mtools
 RUN apt-get install -y dosfstools
+RUN apt-get install -y ncurses-base
+RUN apt-get install -y libncurses-dev
 
 # Create buildroot dir
-RUN mkdir -p /buildroot
-RUN mkdir -p /buildroot-external
-WORKDIR /buildroot
+RUN mkdir -p /src
+WORKDIR /src/buildroot
 
 # Add a user (this is for the kernel builds whoami)
 RUN useradd -ms /bin/bash -u $USER_ID docker
