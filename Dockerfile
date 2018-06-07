@@ -4,6 +4,15 @@ ARG USER_ID
 
 ### Install packages needed for building and downloading
 RUN apt-get update
+RUN apt-get install -y sed
+RUN apt-get install -y binutils
+RUN apt-get install -y gcc
+RUN apt-get install -y g++
+RUN apt-get install -y bash
+RUN apt-get install -y gzip
+RUN apt-get install -y perl
+RUN apt-get install -y tar
+RUN apt-get install -y file
 RUN apt-get install -y curl
 RUN apt-get install -y bzip2
 RUN apt-get install -y make
@@ -27,6 +36,7 @@ RUN apt-get install -y groff-base
 RUN apt-get install -y libconfuse-dev pkg-config
 RUN apt-get install -y mtools
 RUN apt-get install -y dosfstools
+RUN apt-get install -y whois
 RUN apt-get install -y ncurses-base
 RUN apt-get install -y libncurses-dev
 
