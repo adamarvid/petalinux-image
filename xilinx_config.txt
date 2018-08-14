@@ -1,0 +1,8 @@
+#### Vivado HL Design Edition Install Configuration ####
+Edition=Vivado HL Design Edition
+
+# Path where Xilinx software will be installed.
+Destination=/opt/Xilinx
+
+# Choose the Products/Devices the you would like to install.
+Modules=Zynq UltraScale+ MPSoC:0,DocNav:1,Kintex-7:0,Virtex UltraScale+:0,Virtex UltraScale+ HBM ES:0,Zynq-7000:1,Kintex UltraScale+ ES:0,Kintex UltraScale+:0,Model Composer:0,ARM Cortex-A53:0,Spartan-7:0,Zynq UltraScale+ RFSoC ES:0,Engineering Sample Devices:0,Kintex UltraScale:0,Virtex UltraScale:0,SDK Core Tools:1,Zynq UltraScale+ RFSoC:0,ARM Cortex-A9:0,ARM Cortex R5:0,Virtex-7:0,Virtex UltraScale+ ES:0,Zynq UltraScale+ MPSoC ES:0,MicroBlaze:0,Artix-7:0

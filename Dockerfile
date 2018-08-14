@@ -1,6 +1,7 @@
 FROM ubuntu:16.04
 
 ARG USER_ID
+ARG WITH_XILINX
 
 ### Install packages needed for building and downloading
 RUN apt-get update
@@ -46,6 +47,19 @@ WORKDIR /src/buildroot
 
 # Add a user (this is for the kernel builds whoami)
 RUN useradd -ms /bin/bash -u $USER_ID docker
+
+# Install Xilinx environment
+COPY xilinx_config.txt /tmp/xilinx_config.txt
+ENV XILINXD_LICENSE_FILE 2100@136.163.173.175
+ENV LM_LICENSE_FILE 1717@nyx1
+RUN mkdir /opt/Xilinx
+RUN chown -R docker:docker /opt/Xilinx
+RUN if [ $WITH_XILINX = "true" ] ; then echo "XILINX will be installed" ; else echo "XILINX will not be installed" ; fi
+RUN if [ $WITH_XILINX = "true" ] ; then \
+curl -fSL -A "Mozilla/4.0" -o /tmp/xilinx.tar "http://foss.ldchome.org/Xilinx_Vivado_SDK_2018.1_0405_1.tar.gz" && \
+cd /tmp ; tar -xvf xilinx.tar && \
+cd /tmp/Xilinx_Vivado_SDK_2018.1_0405_1 ; ./xsetup -a XilinxEULA,3rdPartyEULA,WebTalkTerms -b Install -c /tmp/xilinx_config.txt \
+; fi
 
 # Setup things for SSH
 COPY ssh_config /home/docker/.ssh/config
