@@ -1,7 +1,7 @@
-FROM 	sonnyhcl/petalinux
+FROM	sonnyhcl/petalinux:2018.2
 
 ENV	SSH_AUTH_SOCK=/tmp/ssh-agent
-ARG 	user=plnx
+ENV	CROSS_COMPILE=/opt/petalinux/tools/linux-i386/gcc-arm-linux-gnueabi/bin/arm-linux-gnueabihf-
 
 # Change user to root for our changes
 USER 	root
@@ -10,11 +10,18 @@ USER 	root
 COPY 	sources.list /etc/apt/sources.list
 
 RUN 	apt-get update -y && \
-	apt-get install -y ssh
+	apt-get install -y \
+	ssh \
+	cmake \
+	gosu
 
-# Setup things for SSH
-COPY 	ssh_config /home/$user/.ssh/config
-RUN 	chown -R $user:$user /home/$user/.ssh
+# Entrypoint
+COPY	entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN	chmod 775 /usr/local/bin/entrypoint.sh
 
-# Change user back to $user
-USER 	$user
+ENTRYPOINT	["/usr/local/bin/entrypoint.sh"]
+
+RUN	mkdir -p /workspace
+WORKDIR	/workspace
+
+CMD	["/bin/bash"]
